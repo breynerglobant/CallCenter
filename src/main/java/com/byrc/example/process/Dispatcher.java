@@ -14,6 +14,11 @@ public class Dispatcher {
    private ExecutorService threadPoolExecutor = Executors.newFixedThreadPool(1);
    private CallAssigner callAssigner = new CallAssigner();
 
+   /**
+    * dispatchCall enqueue a Call, and Call Assigner Execute all enqueue Call
+    * 
+    * @param call
+    */
    public void dispatchCall(final Call call) {
       log.info("Start process to assigned call {} ", call.toString());
       CallRepository.getInstance().addCall(call);
@@ -21,13 +26,15 @@ public class Dispatcher {
       log.info("End of process to assigned call {} ", call.toString());
 
    }
-
+/**
+ * Process metod
+ */
    private void startAssigner() {
       log.info("Validating if it is necessary to re send a CallAssignor  ");
       if (!CallAssigner.isRunning()) {
          log.info("Sending CallAssignor  ");
          threadPoolExecutor.execute(callAssigner);
-        
+
       } else {
          log.info("CallAssignor is running ");
       }

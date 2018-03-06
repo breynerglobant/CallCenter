@@ -32,8 +32,7 @@ public class DispatcherTest {
 
    @Test
    public void executeSigleCallTest() {
-      CallAssigner.resetTotal();
-      CallChecker.TIME_SLEEP_SECONDS = false;
+     
       final Call call = new Call(new User("TEST"));
       dispatcher.dispatchCall(call);
       waitUntilQueueEmpty();
@@ -41,10 +40,12 @@ public class DispatcherTest {
 
    }
 
+   /**
+    * Test with 10 Calls
+    */
    @Test
    public void execute10CallTest() {
-      CallAssigner.resetTotal();
-      CallChecker.TIME_SLEEP_SECONDS = false;
+     
       for (int i = 1; i <= 10; i++) {
          Call call = new Call(new User("Test_" + i));
          dispatcher.dispatchCall(call);
@@ -55,11 +56,12 @@ public class DispatcherTest {
       assertEquals(10, CallAssigner.getTotal());
 
    }
-
+   /**
+    * Test with more than 10 Calls
+    */
    @Test
    public void executeMoreThan10CallTest() {
-      CallAssigner.resetTotal();
-      CallChecker.TIME_SLEEP_SECONDS = false;
+     
       for (int i = 1; i <= 20; i++) {
          Call call = new Call(new User("Test_" + i));
          dispatcher.dispatchCall(call);
